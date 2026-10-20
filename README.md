@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Ian Tellah — Portfolio Website
 
@@ -134,3 +135,6 @@ GitHub stores the source code; it does not automatically host this Flask applica
 ## Content note
 
 Project cards are starting points for your portfolio, not claims of completed client work. Replace them with real projects, screenshots, and links as you build them.
+=======
+# ian-tellah-portfolio
+>>>>>>> 67c7e0b505dcadef97bf6503d8f2cb46579f0953
