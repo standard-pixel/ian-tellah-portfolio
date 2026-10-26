@@ -4,6 +4,8 @@ import re
 import smtplib
 from email.message import EmailMessage
 
+
+
 from flask import (
     Flask,
     flash,
@@ -11,9 +13,15 @@ from flask import (
     render_template,
     request,
     url_for,
+    send_from_directory,
 )
 
+
 app = Flask(__name__)
+
+@app.route("/robots.txt")
+def robots():
+    return send_from_directory("static", "robots.txt")
 
 app.secret_key = os.environ.get(
     "FLASK_SECRET_KEY",
