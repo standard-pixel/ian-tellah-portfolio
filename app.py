@@ -22,7 +22,13 @@ app = Flask(__name__)
 @app.route("/robots.txt")
 def robots():
     return send_from_directory("static", "robots.txt")
-
+@app.route("/sitemap.xml")
+def sitemap():
+    return send_from_directory(
+        "static",
+        "sitemap.xml",
+        mimetype="application/xml"
+    )
 app.secret_key = os.environ.get(
     "FLASK_SECRET_KEY",
     "local-development-key-change-before-deployment"
