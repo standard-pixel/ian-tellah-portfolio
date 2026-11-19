@@ -127,6 +127,12 @@ textarea {
     color: var(--amber);
 }
 
+.site-nav a,
+.text-link,
+.project-arrow {
+    transition: color 0.2s, transform 0.2s;
+}
+
 .nav-cta {
     border: 1px solid #5b4930;
     padding: 10px 15px;
@@ -190,6 +196,10 @@ textarea {
     box-shadow: 0 0 12px #9fca9c55;
 }
 
+.status-dot {
+    animation: status-pulse 2.6s ease-in-out infinite;
+}
+
 .hero h1 {
     font-size: clamp(3.3rem, 7vw, 6rem);
     line-height: 1.02;
@@ -226,6 +236,14 @@ textarea {
 
 .button:hover {
     transform: translateY(-2px);
+}
+
+.button span {
+    transition: transform 0.2s ease;
+}
+
+.button:hover span {
+    transform: translate(2px, -2px);
 }
 
 .button-primary {
@@ -267,7 +285,7 @@ textarea {
 /* Abstract initials graphic */
 
 .hero-art {
-    min-height: 370px;
+    min-height: 460px;
     position: relative;
     display: grid;
     place-items: center;
@@ -283,13 +301,116 @@ textarea {
 .orbit-one {
     width: 330px;
     height: 250px;
+    animation: orbit-drift-one 32s linear infinite;
 }
 
 .orbit-two {
     width: 250px;
     height: 350px;
-    transform: rotate(43deg);
+    animation: orbit-drift-two 38s linear infinite;
     border-color: #38362d;
+}
+
+.portrait-card {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 326px);
+    height: 392px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #736044;
+    background: #171714;
+    box-shadow: 18px 20px 0 rgba(0, 0, 0, 0.26);
+    transform: rotate(2deg);
+    transition: transform 0.4s ease, border-color 0.3s, box-shadow 0.4s;
+    cursor: crosshair;
+}
+
+.portrait-card:hover,
+.portrait-card:focus {
+    border-color: var(--amber);
+    box-shadow: 24px 25px 0 rgba(0, 0, 0, 0.24), 0 0 55px #e8ad5315;
+    transform: rotate(0) translateY(-5px);
+}
+
+.portrait-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 58%, rgba(8, 8, 7, 0.78));
+    pointer-events: none;
+}
+
+.portrait-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 32%;
+    filter: saturate(0.82) contrast(1.04);
+    transition: filter 0.55s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.portrait-card:hover .portrait-image,
+.portrait-card:focus .portrait-image {
+    filter: invert(1) hue-rotate(180deg) saturate(0.82) contrast(1.04);
+    transform: scale(1.035);
+}
+
+.portrait-caption {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    gap: 5px;
+    padding: 17px 18px;
+    color: #f4f0e6;
+    font-family: var(--mono);
+    text-shadow: 0 1px 8px #000;
+}
+
+.portrait-label {
+    font-size: 0.67rem;
+    letter-spacing: 0.12em;
+}
+
+.portrait-hint {
+    color: #d9c9a9;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+}
+
+.portrait-hint span {
+    display: inline-block;
+    margin-left: 5px;
+    transition: transform 0.2s;
+}
+
+.portrait-card:hover .portrait-hint span,
+.portrait-card:focus .portrait-hint span {
+    transform: translate(2px, -2px);
+}
+
+.portrait-stamp {
+    position: absolute;
+    z-index: 3;
+    top: 48px;
+    right: max(12px, calc((100% - 326px) / 2 - 22px));
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border: 1px solid #f4d6a0;
+    border-radius: 50%;
+    background: var(--amber);
+    color: #17130c;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: -0.1em;
+    transform: rotate(10deg);
 }
 
 .art-core {
@@ -336,11 +457,13 @@ textarea {
 .cross-one {
     top: 65px;
     left: 65px;
+    animation: gentle-float 4.8s ease-in-out infinite;
 }
 
 .cross-two {
     right: 50px;
     bottom: 55px;
+    animation: gentle-float 5.5s ease-in-out -1.4s infinite;
 }
 
 /* Scrolling-style skill strip */
@@ -472,6 +595,12 @@ textarea {
     font-family: var(--mono);
     font-size: 1rem;
     margin-bottom: 23px;
+    transition: transform 0.25s ease, background 0.25s;
+}
+
+.skill-card:hover .skill-icon {
+    background: #342819;
+    transform: rotate(-7deg) scale(1.06);
 }
 
 .skill-card h3,
@@ -714,6 +843,11 @@ textarea {
     color: var(--amber);
 }
 
+.project-card:hover .project-arrow {
+    color: var(--amber-soft);
+    transform: translate(3px, -3px);
+}
+
 .project-description {
     grid-column: 1 / -1;
     color: var(--muted);
@@ -906,6 +1040,28 @@ textarea {
 
 /* Animations */
 
+@keyframes status-pulse {
+    0%,
+    100% { box-shadow: 0 0 8px #9fca9c44; }
+    50% { box-shadow: 0 0 17px #9fca9caa; }
+}
+
+@keyframes gentle-float {
+    0%,
+    100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+@keyframes orbit-drift-one {
+    from { transform: rotate(-28deg); }
+    to { transform: rotate(332deg); }
+}
+
+@keyframes orbit-drift-two {
+    from { transform: rotate(43deg); }
+    to { transform: rotate(403deg); }
+}
+
 .reveal {
     opacity: 1;
     transform: none;
@@ -939,7 +1095,7 @@ textarea {
     }
 
     .hero-art {
-        min-height: 290px;
+        min-height: 420px;
         max-width: 480px;
         width: 100%;
         margin: 0 auto;
@@ -1054,7 +1210,16 @@ textarea {
     }
 
     .hero-art {
-        min-height: 260px;
+        min-height: 390px;
+    }
+
+    .portrait-card {
+        width: min(100%, 286px);
+        height: 345px;
+    }
+
+    .portrait-stamp {
+        right: max(12px, calc((100% - 286px) / 2 - 20px));
     }
 
     .ticker {

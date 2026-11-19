@@ -40,15 +40,26 @@
             </div>
         </div>
 
-        <div class="hero-art" aria-label="Decorative initials graphic">
-            <div class="art-orbit orbit-one"></div>
-            <div class="art-orbit orbit-two"></div>
-            <div class="art-core"><span>IT</span></div>
+        <div class="hero-art" role="group" aria-label="Interactive portrait color study">
+            <div class="art-orbit orbit-one" aria-hidden="true"></div>
+            <div class="art-orbit orbit-two" aria-hidden="true"></div>
 
-            <span class="art-tag tag-top">CREATIVE / 01</span>
-            <span class="art-tag tag-bottom">LEARN · BUILD · REFINE</span>
-            <span class="art-cross cross-one">+</span>
-            <span class="art-cross cross-two">+</span>
+            <figure class="portrait-card" tabindex="0"
+                    aria-describedby="portrait-hint">
+                <img class="portrait-image"
+                     src="{{ url_for('static', filename='img/portfolio-1.jpg') }}"
+                     alt="Studio portrait used for a color inversion study">
+                <figcaption class="portrait-caption">
+                    <span class="portrait-label">PORTRAIT STUDY / 01</span>
+                    <span id="portrait-hint" class="portrait-hint">
+                        HOVER OR FOCUS TO INVERT <span aria-hidden="true">↗</span>
+                    </span>
+                </figcaption>
+            </figure>
+
+            <span class="portrait-stamp" aria-hidden="true">IT</span>
+            <span class="art-cross cross-one" aria-hidden="true">+</span>
+            <span class="art-cross cross-two" aria-hidden="true">+</span>
         </div>
     </div>
 
