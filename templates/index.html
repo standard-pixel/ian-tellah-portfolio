@@ -49,10 +49,15 @@
                 <img class="portrait-image"
                      src="{{ url_for('static', filename='img/portfolio-1.jpg') }}"
                      alt="Studio portrait used for a color inversion study">
+                <div class="portrait-negative" aria-hidden="true">
+                    <img src="{{ url_for('static', filename='img/portfolio-1.jpg') }}"
+                         alt="">
+                </div>
+                <span class="portrait-mask-frame" aria-hidden="true"></span>
                 <figcaption class="portrait-caption">
                     <span class="portrait-label">PORTRAIT STUDY / 01</span>
                     <span id="portrait-hint" class="portrait-hint">
-                        HOVER OR FOCUS TO INVERT <span aria-hidden="true">↗</span>
+                        MOVE CURSOR OR USE ARROWS <span aria-hidden="true">↗</span>
                     </span>
                 </figcaption>
             </figure>

@@ -314,6 +314,12 @@ textarea {
 .portrait-card {
     position: relative;
     z-index: 2;
+    --mask-width: 170px;
+    --mask-height: 112px;
+    --mask-half-width: 85px;
+    --mask-half-height: 56px;
+    --mask-x: 50%;
+    --mask-y: 50%;
     width: min(100%, 326px);
     height: 392px;
     margin: 0;
@@ -341,20 +347,62 @@ textarea {
     pointer-events: none;
 }
 
-.portrait-image {
+.portrait-image,
+.portrait-negative img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center 32%;
-    filter: saturate(0.82) contrast(1.04);
-    transition: filter 0.55s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.portrait-card:hover .portrait-image,
-.portrait-card:focus .portrait-image {
-    filter: invert(1) hue-rotate(180deg) saturate(0.82) contrast(1.04);
-    transform: scale(1.035);
+.portrait-image {
+    filter: saturate(0.82) contrast(1.04);
+}
+
+.portrait-negative {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(#000 0 0);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: var(--mask-width) var(--mask-height);
+    -webkit-mask-position:
+        calc(var(--mask-x) - var(--mask-half-width))
+        calc(var(--mask-y) - var(--mask-half-height));
+    mask-image: linear-gradient(#000 0 0);
+    mask-repeat: no-repeat;
+    mask-size: var(--mask-width) var(--mask-height);
+    mask-position:
+        calc(var(--mask-x) - var(--mask-half-width))
+        calc(var(--mask-y) - var(--mask-half-height));
+    transition: opacity 0.14s ease;
+}
+
+.portrait-negative img {
+    filter: invert(1) saturate(0.82) contrast(1.04);
+}
+
+.portrait-mask-frame {
+    position: absolute;
+    z-index: 2;
+    top: var(--mask-y);
+    left: var(--mask-x);
+    width: var(--mask-width);
+    height: var(--mask-height);
+    border: 1px solid #f5d6a2;
+    box-shadow: 0 0 16px #0008, inset 0 0 12px #0003;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.14s ease;
+}
+
+.portrait-card.is-active .portrait-negative,
+.portrait-card.is-active .portrait-mask-frame {
+    opacity: 1;
 }
 
 .portrait-caption {
@@ -1216,6 +1264,10 @@ textarea {
     .portrait-card {
         width: min(100%, 286px);
         height: 345px;
+        --mask-width: 150px;
+        --mask-height: 100px;
+        --mask-half-width: 75px;
+        --mask-half-height: 50px;
     }
 
     .portrait-stamp {
