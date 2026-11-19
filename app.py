@@ -2,33 +2,58 @@
 import os
 import re
 import smtplib
+import xml.etree.ElementTree as ET
 from email.message import EmailMessage
-
-
 
 from flask import (
     Flask,
+    Response,
     flash,
     redirect,
     render_template,
     request,
     url_for,
-    send_from_directory,
 )
 
 
 app = Flask(__name__)
 
+DEFAULT_SITE_URL = "https://ian-tellah-portfolio-1.onrender.com"
+SITE_URL = (os.environ.get("SITE_URL") or DEFAULT_SITE_URL).strip().rstrip("/")
+
+
+@app.context_processor
+def inject_site_url():
+    return {"site_url": SITE_URL}
+
+
 @app.route("/robots.txt")
 def robots():
-    return send_from_directory("static", "robots.txt")
+    body = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "\n"
+        f"Sitemap: {SITE_URL}/sitemap.xml\n"
+    )
+    response = Response(body, mimetype="text/plain")
+    response.headers["Cache-Control"] = "public, max-age=300, must-revalidate"
+    return response
+
+
 @app.route("/sitemap.xml")
 def sitemap():
-    return send_from_directory(
-        "static",
-        "sitemap.xml",
-        mimetype="application/xml"
-    )
+    namespace = "http://www.sitemaps.org/schemas/sitemap/0.9"
+    ET.register_namespace("", namespace)
+    urlset = ET.Element(f"{{{namespace}}}urlset")
+    url = ET.SubElement(urlset, f"{{{namespace}}}url")
+    location = ET.SubElement(url, f"{{{namespace}}}loc")
+    location.text = f"{SITE_URL}/"
+
+    xml = ET.tostring(urlset, encoding="utf-8", xml_declaration=True)
+    response = Response(xml, mimetype="application/xml")
+    response.headers["Cache-Control"] = "public, max-age=3600"
+    return response
+
 app.secret_key = os.environ.get(
     "FLASK_SECRET_KEY",
     "local-development-key-change-before-deployment"

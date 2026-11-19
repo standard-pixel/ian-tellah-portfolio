@@ -23,10 +23,22 @@ html {
 
 body {
     margin: 0;
-    background: var(--bg);
+    background:
+        radial-gradient(ellipse at 82% 5%, rgba(117, 82, 38, 0.12), transparent 30rem),
+        var(--bg);
     color: var(--text);
     font-family: var(--font);
     line-height: 1.65;
+}
+
+::selection {
+    color: #17130c;
+    background: var(--amber);
+}
+
+:focus-visible {
+    outline: 2px solid var(--amber-soft);
+    outline-offset: 4px;
 }
 
 a {
@@ -130,6 +142,7 @@ textarea {
     background: none;
     border: 0;
     color: var(--text);
+    cursor: pointer;
 }
 
 .section {
@@ -514,6 +527,12 @@ textarea {
     border: 1px solid #302f27;
     background: #151512;
     overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+}
+
+.project-card:hover {
+    border-color: #75603e;
+    transform: translateY(-4px);
 }
 
 .project-visual {
@@ -524,12 +543,47 @@ textarea {
     overflow: hidden;
 }
 
+.project-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s ease;
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.045);
+}
+
+.visual-edit::after,
+.visual-design::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(12, 12, 10, 0.2), transparent 38%, rgba(12, 12, 10, 0.66));
+    pointer-events: none;
+}
+
 .visual-label {
     position: absolute;
     top: 16px;
     left: 17px;
     color: #b6ad9a;
     font-size: 0.58rem;
+    z-index: 1;
+    text-shadow: 0 1px 8px #000;
+}
+
+.visual-caption {
+    position: absolute;
+    left: 17px;
+    bottom: 15px;
+    color: #f2efe7;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.13em;
+    z-index: 1;
 }
 
 .visual-edit {
@@ -647,6 +701,7 @@ textarea {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 7px;
+    min-height: 145px;
 }
 
 .project-type {
@@ -958,6 +1013,7 @@ textarea {
         flex-direction: column;
         gap: 5px;
         padding: 10px;
+        border: 1px solid #39372e;
     }
 
     .nav-toggle span {
@@ -1031,6 +1087,10 @@ textarea {
         height: 205px;
     }
 
+    .project-info {
+        min-height: 0;
+    }
+
     .skill-card {
         min-height: 230px;
     }
@@ -1067,4 +1127,13 @@ textarea {
         opacity: 1;
         transform: none;
     }
+}
+
+.portfolio-image {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
 }

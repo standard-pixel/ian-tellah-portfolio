@@ -13,6 +13,12 @@ const navToggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector(".site-nav");
 
 if (navToggle && nav) {
+    const closeNav = () => {
+        nav.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open navigation");
+    };
+
     navToggle.addEventListener("click", () => {
         const isOpen = nav.classList.toggle("is-open");
 
@@ -25,12 +31,14 @@ if (navToggle && nav) {
     });
 
     nav.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            nav.classList.remove("is-open");
+        link.addEventListener("click", closeNav);
+    });
 
-            navToggle.setAttribute("aria-expanded", "false");
-            navToggle.setAttribute("aria-label", "Open navigation");
-        });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && nav.classList.contains("is-open")) {
+            closeNav();
+            navToggle.focus();
+        }
     });
 }
 
