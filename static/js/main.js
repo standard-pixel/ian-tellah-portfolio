@@ -69,11 +69,11 @@ if (finePointer && !reduceMotion) {
     document.querySelectorAll(".magnetic").forEach((element) => {
         element.addEventListener("pointermove", (event) => {
             const bounds = element.getBoundingClientRect();
-            const offsetX = (event.clientX - bounds.left - bounds.width / 2) * 0.14;
-            const offsetY = (event.clientY - bounds.top - bounds.height / 2) * 0.14;
+            const offsetX = (event.clientX - bounds.left - bounds.width / 2) * 0.25;
+            const offsetY = (event.clientY - bounds.top - bounds.height / 2) * 0.25;
 
-            element.style.setProperty("--mag-x", `${Math.max(-7, Math.min(7, offsetX))}px`);
-            element.style.setProperty("--mag-y", `${Math.max(-5, Math.min(5, offsetY))}px`);
+            element.style.setProperty("--mag-x", `${Math.max(-14, Math.min(14, offsetX))}px`);
+            element.style.setProperty("--mag-y", `${Math.max(-9, Math.min(9, offsetY))}px`);
         });
 
         element.addEventListener("pointerleave", () => {
@@ -90,8 +90,8 @@ if (finePointer && !reduceMotion) {
 
             const x = (event.clientX - bounds.left) / bounds.width;
             const y = (event.clientY - bounds.top) / bounds.height;
-            const tiltX = (0.5 - y) * 3.2;
-            const tiltY = (x - 0.5) * 3.2;
+            const tiltX = (0.5 - y) * 11;
+            const tiltY = (x - 0.5) * 11;
 
             card.style.setProperty("--card-x", `${x * 100}%`);
             card.style.setProperty("--card-y", `${y * 100}%`);

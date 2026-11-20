@@ -1673,7 +1673,7 @@ body::before {
 .button.magnetic,
 .nav-cta.magnetic {
     transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0);
-    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.25s, border-color 0.25s, color 0.25s;
+    transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.25s, border-color 0.25s, color 0.25s;
 }
 
 .button.magnetic:hover {
@@ -1702,8 +1702,10 @@ body::before {
 .project-card {
     position: relative;
     isolation: isolate;
+    overflow: visible;
     transform-style: preserve-3d;
-    transition: border-color 0.3s, transform 0.35s cubic-bezier(0.2, 0.75, 0.2, 1), box-shadow 0.3s;
+    transform-origin: center;
+    transition: border-color 0.3s, transform 0.42s cubic-bezier(0.18, 0.78, 0.18, 1), box-shadow 0.35s;
 }
 
 .project-card::before {
@@ -1720,8 +1722,8 @@ body::before {
 .project-card:hover,
 .project-card:focus-within {
     border-color: rgba(234, 180, 94, 0.46);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
-    transform: perspective(1050px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-4px);
+    box-shadow: 0 30px 72px rgba(0, 0, 0, 0.42), 0 0 42px rgba(234, 180, 94, 0.13), inset 0 1px rgba(255, 255, 255, 0.08);
+    transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-7px) scale(1.015);
 }
 
 .project-card:hover::before,
@@ -1731,6 +1733,22 @@ body::before {
 
 .project-visual {
     transform: translateZ(0);
+    transition: transform 0.42s cubic-bezier(0.18, 0.78, 0.18, 1);
+}
+
+.project-card:hover .project-visual,
+.project-card:focus-within .project-visual {
+    transform: translateZ(24px);
+}
+
+.project-info {
+    position: relative;
+    transition: transform 0.42s cubic-bezier(0.18, 0.78, 0.18, 1);
+}
+
+.project-card:hover .project-info,
+.project-card:focus-within .project-info {
+    transform: translateZ(14px);
 }
 
 .project-image {
@@ -1853,7 +1871,14 @@ body::before {
 
     .project-card:hover,
     .project-card:focus-within {
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+    }
+
+    .project-card:hover .project-visual,
+    .project-card:hover .project-info,
+    .project-card:focus-within .project-visual,
+    .project-card:focus-within .project-info {
+        transform: none;
     }
 
     .portrait-card {
@@ -1884,6 +1909,13 @@ body::before {
     .project-card:focus-within,
     .button.magnetic,
     .nav-cta.magnetic {
+        transform: none;
+    }
+
+    .project-card:hover .project-visual,
+    .project-card:hover .project-info,
+    .project-card:focus-within .project-visual,
+    .project-card:focus-within .project-info {
         transform: none;
     }
 
