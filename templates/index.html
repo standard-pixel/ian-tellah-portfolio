@@ -14,7 +14,8 @@
             </p>
 
             <h1>
-                Ideas into <span class="accent">something real.</span>
+                <span class="hero-title-line">Ideas into</span>
+                <span class="hero-title-line accent">something real.</span>
             </h1>
 
             <p class="hero-lede">
@@ -24,11 +25,11 @@
             </p>
 
             <div class="hero-actions">
-                <a class="button button-primary" href="#work">
+                <a class="button button-primary magnetic" href="#work">
                     Explore my work <span aria-hidden="true">↘</span>
                 </a>
 
-                <a class="button button-quiet" href="#contact">
+                <a class="button button-quiet magnetic" href="#contact">
                     Get in touch <span aria-hidden="true">↗</span>
                 </a>
             </div>
@@ -48,17 +49,21 @@
                     aria-describedby="portrait-hint">
                 <img class="portrait-image"
                      src="{{ url_for('static', filename='img/portfolio-1.jpg') }}"
-                     alt="Studio portrait used for a color inversion study">
+                     alt="Studio portrait used for a cinematic film-negative color study"
+                     fetchpriority="high" decoding="async">
                 <div class="portrait-negative" aria-hidden="true">
                     <img src="{{ url_for('static', filename='img/portfolio-1.jpg') }}"
-                         alt="">
+                         alt="" decoding="async">
                 </div>
                 <span class="portrait-mask-frame" aria-hidden="true"></span>
                 <figcaption class="portrait-caption">
                     <span class="portrait-label">PORTRAIT STUDY / 01</span>
                     <span id="portrait-hint" class="portrait-hint">
-                        MOVE CURSOR OR USE ARROWS <span aria-hidden="true">↗</span>
+                        MOVE CURSOR · FOCUS + ARROWS <span aria-hidden="true">↗</span>
                     </span>
+                    <button class="portrait-toggle" type="button" aria-pressed="false">
+                        Tap to reveal <span aria-hidden="true">↗</span>
+                    </button>
                 </figcaption>
             </figure>
 
@@ -225,7 +230,8 @@
                 <div class="project-visual visual-edit">
                     <img class="project-image"
                          src="{{ url_for('static', filename='img/portfolio-2.jpg') }}"
-                         alt="Motorcycle rider moving through a city at night">
+                         alt="Motorcycle rider moving through a city at night"
+                         loading="lazy" decoding="async">
                     <span class="visual-label">01 / MOTION</span>
                     <span class="visual-caption">PACE · SOUND · STORY</span>
                 </div>
@@ -271,7 +277,8 @@
                 <div class="project-visual visual-design">
                     <img class="project-image"
                          src="{{ url_for('static', filename='img/portfolio-3.jpg') }}"
-                         alt="Dark portfolio interface displayed on a desktop monitor">
+                         alt="Portfolio interface concept displayed on a desktop monitor"
+                         loading="lazy" decoding="async">
                     <span class="visual-label">03 / VISUALS</span>
                     <span class="visual-caption">LAYOUT · TYPE · DETAIL</span>
                 </div>
@@ -352,7 +359,7 @@
                       maxlength="5000" required
                       placeholder="Tell me a little about it..."></textarea>
 
-            <button class="button button-primary submit-button" type="submit">
+            <button class="button button-primary submit-button magnetic" type="submit">
                 Send message <span aria-hidden="true">↗</span>
             </button>
 
