@@ -106,6 +106,40 @@ if (finePointer && !reduceMotion) {
     });
 }
 
+// Touch has no hover, so a tap briefly tilts a project card toward the finger.
+if (!finePointer && !reduceMotion) {
+    document.querySelectorAll(".project-card").forEach((card) => {
+        let resetTimer;
+
+        const resetTouchTilt = () => {
+            window.clearTimeout(resetTimer);
+            resetTimer = window.setTimeout(() => {
+                card.classList.remove("is-touch-active");
+                card.style.setProperty("--tilt-x", "0deg");
+                card.style.setProperty("--tilt-y", "0deg");
+            }, 700);
+        };
+
+        card.addEventListener("pointerdown", (event) => {
+            if (event.pointerType !== "touch") return;
+
+            const bounds = card.getBoundingClientRect();
+            if (!bounds.width || !bounds.height) return;
+
+            const x = (event.clientX - bounds.left) / bounds.width;
+            const y = (event.clientY - bounds.top) / bounds.height;
+            card.style.setProperty("--tilt-x", `${((0.5 - y) * 8).toFixed(2)}deg`);
+            card.style.setProperty("--tilt-y", `${((x - 0.5) * 8).toFixed(2)}deg`);
+            card.style.setProperty("--card-x", `${x * 100}%`);
+            card.style.setProperty("--card-y", `${y * 100}%`);
+            card.classList.add("is-touch-active");
+        });
+
+        card.addEventListener("pointerup", resetTouchTilt);
+        card.addEventListener("pointercancel", resetTouchTilt);
+    });
+}
+
 // Follow the pointer with a perforated film-strip negative reveal.
 const portrait = document.querySelector(".portrait-card");
 
